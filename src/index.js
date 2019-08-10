@@ -314,5 +314,13 @@ export const EventBus = function () {
     publish: function (eventName, args) {
       that.postMessage({type: "publish", eventName: eventName, payload: args}, "*")
     }
+
+      /**
+     * publish the event
+     * @param {string} eventName - name of the event.
+     */
+    publishToAgent: function (eventName, args) {
+      that.postMessage({type: "", eventName: eventName, payload: args}, "*")
+    }
   };
 };

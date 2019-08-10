@@ -2,9 +2,10 @@
   "name": "asu-event-bus-iframe",
   "version": "1.0.0",
   "description": "exchange message between iframes.",
-  "main": "index.js",
+  "main": "./dist/index.bundle.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node node_modules/webpack/bin/webpack.js"
   },
   "repository": {
     "type": "git",
@@ -14,10 +15,16 @@
     "event-bus",
     "iframe"
   ],
-  "author": "Bruce",
+  "author": "Bruce Asu",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/bruceasu/asu-event-bus-iframe/issues"
   },
-  "homepage": "https://github.com/bruceasu/asu-event-bus-iframe#readme"
+  "homepage": "https://github.com/bruceasu/asu-event-bus-iframe#readme",
+  "devDependencies": {
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6"
+  },
+  "dependencies": {}
 }
