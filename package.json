@@ -1,0 +1,23 @@
+{
+  "name": "asu-event-bus-iframe",
+  "version": "1.0.0",
+  "description": "exchange message between iframes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bruceasu/asu-event-bus-iframe.git"
+  },
+  "keywords": [
+    "event-bus",
+    "iframe"
+  ],
+  "author": "Bruce",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bruceasu/asu-event-bus-iframe/issues"
+  },
+  "homepage": "https://github.com/bruceasu/asu-event-bus-iframe#readme"
+}
