@@ -1,9 +1,18 @@
+export const ASU_EVENT_BUS_IFRAME_VER=1.0.1;
+
 export const isBrowserSupport = (): void => {
   // https://caniuse.com/#search=postMessage
   if(!window.postMessage) {
     console.log("Your browser is not support.");
     throw {message: "Your browser is not support."}
   }
+};
+
+export const MESSAGE_TYPE = {
+  TYPE_SUBSCRIBE: "subscribe",
+  TYPE_UNSUBSCRIBE: "unsubscribe",
+  TYPE_PUBLISH: "publish",
+  TYPE_SENDTOAGENT: "send-to-agent",
 };
 
 /**
@@ -113,8 +122,8 @@ export class EventAgent {
   dispatch = (event) => {
     console.log("EventAgent dispatch event:", event);
     let type = event.data.type || "";
-    if (type === "subscribe") {
-      console.log("subscribe", event.data.eventName);
+    if (type === MESSAGE_TYPE.TYPE_SUBSCRIBE) {
+      // 注册事件
       this.addListener({
         eventName: event.data.eventName,
         origin: event.origin,
@@ -122,7 +131,7 @@ export class EventAgent {
         source: event.source,
         ports: event.ports,
       });
-    } else if (type === "unsubscribe") {
+    } else if (type ===  MESSAGE_TYPE.TYPE_UNSUBSCRIBE) {
       this.removeListener({
         eventName: event.data.eventName,
         origin: event.origin,
@@ -130,17 +139,22 @@ export class EventAgent {
         source: event.source,
         ports: event.ports,
       });
-    } else if (type === "publish"){
+    } else if (type ===  MESSAGE_TYPE.TYPE_PUBLISH) {
+      // 广播事件
       this.forward({
-        eventName: event.data.eventName,
-        payload: event.data.payload,
-        from: {
-          origin: event.origin,
-          lastEventId: event.lastEventId,
-          source: event.source,
-          ports: event.ports,
-        }
-      });
+                     eventName: event.data.eventName,
+                     payload: event.data.payload,
+                     from: {
+                       origin: event.origin,
+                       lastEventId: event.lastEventId,
+                       source: event.source,
+                       ports: event.ports,
+                     }
+                   });
+    } else if (type ===  MESSAGE_TYPE.TYPE_SENDTOAGENT){
+      // 发给自己的事件
+      this.publishLocal (event.data.eventName, event.data.payload, event.source);
+
     } else if (event.data.eventName) {
       // 自己处理的事件
       this.publishLocal (event.data.eventName, event.data.payload, event.source);
@@ -329,6 +343,16 @@ export class EventBus {
      * @param {string} eventName - name of the event.
      */
     publish (eventName:string, args:any) {
-      this.postMessage({type: "publish", eventName: eventName, payload: args})
+      this.postMessage({type: MESSAGE_TYPE.TYPE_PUBLISH, eventName: eventName, payload: args})
+    },
+
+  /**
+   * send a message to top window.
+   * @param eventName
+   * @param args
+   */
+  sendToAgent(eventName:string, args:any)
+    {
+      this.postMessage({type: MESSAGE_TYPE.TYPE_SENDTOAGENT, eventName: eventName, payload: args})
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "asu-event-bus-iframe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "exchange message between iframes.",
   "main": "./dist/index.bundle.js",
   "scripts": {
