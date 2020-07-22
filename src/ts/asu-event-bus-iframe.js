@@ -332,7 +332,7 @@ export const EventBus = function () {
     */
     sendToAgent(eventName, args)
     {
-      that.postMessage({type: MESSAGE_TYPE.TYPE_SENDTOAGENT, eventName: eventName, payload: args})
+      that.postMessage({type: MESSAGE_TYPE.TYPE_SENDTOAGENT, eventName: eventName, payload: args}, "*")
     },
     
     /**

@@ -343,7 +343,7 @@ export class EventBus {
      * @param {string} eventName - name of the event.
      */
     publish (eventName:string, args:any) {
-      this.postMessage({type: MESSAGE_TYPE.TYPE_PUBLISH, eventName: eventName, payload: args})
+      this.postMessage({type: MESSAGE_TYPE.TYPE_PUBLISH, eventName: eventName, payload: args}, "*")
     },
 
   /**
@@ -353,6 +353,6 @@ export class EventBus {
    */
   sendToAgent(eventName:string, args:any)
     {
-      this.postMessage({type: MESSAGE_TYPE.TYPE_SENDTOAGENT, eventName: eventName, payload: args})
+      this.postMessage({type: MESSAGE_TYPE.TYPE_SENDTOAGENT, eventName: eventName, payload: args}, "*")
     }
 }
